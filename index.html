@@ -1,0 +1,345 @@
+```html
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Class 12 Physics Study Hub & Smart Question Bank</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0b0f19;
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.78);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(148, 163, 184, 0.14);
+    }
+    .glass-card-hover {
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card-hover:hover {
+      border-color: rgba(99, 102, 241, 0.45);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -10px rgba(99, 102, 241, 0.22);
+    }
+    .solution-box {
+      transition: max-height 0.35s ease, opacity 0.25s ease;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.6);
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(99, 102, 241, 0.4);
+      border-radius: 9999px;
+    }
+    .math-formula {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(30, 41, 59, 0.85);
+      border-left: 3px solid #818cf8;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-40 glass-card border-b border-slate-800/80">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/25 font-bold text-white text-lg">
+          Φ
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 id="portalTitleDisplay" class="font-bold text-base sm:text-lg tracking-tight text-white">Isha's Class 12 Physics Vault</h1>
+            <span class="text-[11px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">CBSE 042</span>
+          </div>
+          <p class="text-xs text-slate-400">Complete Derivations, Reference Book, Video Lectures & Smart Topic Question Bank</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="hidden sm:flex items-center gap-2 bg-slate-900/90 border border-slate-800 px-3 py-1.5 rounded-xl text-xs">
+          <span class="text-emerald-400 font-semibold" id="solvedCountBadge">0 / 42</span>
+          <span class="text-slate-400">Questions Mastered</span>
+        </div>
+        <button id="openCustomModalBtn" type="button" class="text-xs font-medium px-3 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 transition flex items-center gap-1.5">
+          <span>⚙️</span>
+          <span>Customize Links</span>
+        </button>
+        <button id="openGithubGuideBtn" type="button" class="text-xs font-semibold px-3 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white shadow-md shadow-indigo-600/25 transition flex items-center gap-1.5">
+          <span>🚀</span>
+          <span>GitHub Pages Setup</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-8">
+
+    <!-- Hero & Resource Hub (2 PDFs + YouTube Playlist) -->
+    <section aria-label="Study Resources & Downloads" class="space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-indigo-400">Step 1 • Core Study Material</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-white mt-0.5">PDF Downloads & Video Playlist</h2>
+        </div>
+        <p class="text-xs text-slate-400">Direct one-click downloads for offline revision + curated Class 12 playlist</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <!-- PDF 1: Derivations Book -->
+        <div class="glass-card glass-card-hover rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute -right-6 -top-6 w-24 h-24 bg-indigo-500/10 rounded-full blur-xl pointer-events-none"></div>
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">
+                📄 PDF 1 • Derivations
+              </span>
+              <span class="text-xs text-slate-400 font-mono">Ch 1 – 14</span>
+            </div>
+            <h3 class="text-base font-bold text-white group-hover:text-indigo-300 transition">
+              All Chapter Derivations Master PDF
+            </h3>
+            <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+              Step-by-step board derivations with neat ray diagrams, Gauss law proofs, LCR phasors, and formula summary sheets.
+            </p>
+          </div>
+
+          <div class="mt-5 pt-3 border-t border-slate-800/80 flex items-center gap-2">
+            <button id="https://drive.google.com/file/d/1gWzPXEnnv07qJmK1BKqgHp_PEzc8qSt0/view?usp=drivesdk" type="button" data-pdf-key="derivations" class="download-pdf-btn flex-1 text-center text-xs font-semibold py-2.5 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition shadow-sm">
+              ⬇️ Download Derivations PDF
+            </button>
+            <button type="button" data-preview="derivations" class="preview-pdf-btn text-xs font-medium py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition" title="Preview Derivations Sheet">
+              👁️ Quick View
+            </button>
+          </div>
+        </div>
+
+        <!-- PDF 2: Complete Physics Book -->
+        <div class="glass-card glass-card-hover rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute -right-6 -top-6 w-24 h-24 bg-emerald-500/10 rounded-full blur-xl pointer-events-none"></div>
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                📘 PDF 2 • Full Textbook
+              </span>
+              <span class="text-xs text-slate-400 font-mono">Part 1 & 2</span>
+            </div>
+            <h3 class="text-base font-bold text-white group-hover:text-emerald-300 transition">
+              Class 12 Physics Reference & NCERT Book
+            </h3>
+            <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+              Complete theory textbook with solved NCERT examples, previous year board questions (PYQs), and chapter notes.
+            </p>
+          </div>
+
+          <div class="mt-5 pt-3 border-t border-slate-800/80 flex items-center gap-2">
+            <button id="https://drive.google.com/file/d/1OSt3nSRo70yxODEEHsklghOpNxDQUTJB/view?usp=drivesdk" type="button" data-pdf-key="book" class="download-pdf-btn flex-1 text-center text-xs font-semibold py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition shadow-sm">
+              ⬇️ Download Physics Book
+            </button>
+            <button type="button" data-preview="book" class="preview-pdf-btn text-xs font-medium py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition" title="Preview Book Chapters">
+              👁️ Quick View
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3: YouTube Playlist -->
+        <div class="glass-card glass-card-hover rounded-2xl p-5 flex flex-col justify-between relative overflow-hidden group">
+          <div class="absolute -right-6 -top-6 w-24 h-24 bg-rose-500/10 rounded-full blur-xl pointer-events-none"></div>
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-rose-500/20 text-rose-300 border border-rose-500/30">
+                ▶️ YouTube Playlist
+              </span>
+              <span class="text-xs text-slate-400 font-mono">One-Shots + PYQs</span>
+            </div>
+            <h3 id="playlistTitleDisplay" class="text-base font-bold text-white group-hover:text-rose-300 transition">
+              Class 12 Physics Complete Video Playlist
+            </h3>
+            <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+              Watch chapter-wise marathon lectures, concept visualizers, and numerical solving sessions whenever a topic feels tricky.
+            </p>
+          </div>
+
+          <div class="mt-5 pt-3 border-t border-slate-800/80 flex items-center gap-2">
+            <a id="https://youtube.com/playlist?list=PL2xF3HCNxGM8JscWKWvoxY4EGf8C5ur_4&si=_n6jmZNvVLNVaNbH" href="https://youtube.com/playlist?list=PL2xF3HCNxGM8JscWKWvoxY4EGf8C5ur_4&si=_3NGsxr1VgJEVGAS" target="_blank" rel="noopener noreferrer" class="flex-1 text-center text-xs font-semibold py-2.5 px-3 rounded-xl bg-rose-600 hover:bg-rose-500 text-white transition shadow-sm">
+              ▶️ Open YouTube Playlist
+            </a>
+            <button id="editPlaylistQuickBtn" type="button" class="text-xs font-medium py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition" title="Set Custom Playlist URL">
+              🔗 Set Link
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Smart Typo-Tolerant Topic Search Engine -->
+    <section aria-label="Smart Topic Question Bank" class="space-y-5">
+      <div class="glass-card rounded-2xl p-5 sm:p-6 border border-indigo-500/30 shadow-xl">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
+          <div>
+            <span class="text-xs font-semibold uppercase tracking-wider text-indigo-400">Step 2 • Smart Fuzzy Search Engine</span>
+            <h2 class="text-xl sm:text-2xl font-bold text-white mt-0.5">Type Any Deep Syllabus Topic (Even Half-Words or Typos!)</h2>
+            <p class="text-xs text-slate-300 mt-1">
+              Powered by Levenshtein edit-distance + N-gram fuzzy matching across all 14 CBSE Class 12 Physics chapters.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span id="matchStatusBadge" class="text-xs font-mono px-3 py-1.5 rounded-xl bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">
+              Showing all 42 syllabus questions
+            </span>
+          </div>
+        </div>
+
+        <!-- Search Input & Filters -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-3">
+          <div class="lg:col-span-7 relative">
+            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+              🔍
+            </div>
+            <input
+              id="topicSearchInput"
+              type="text"
+              autocomplete="off"
+              placeholder="Try typing 'gaus law', 'kirchof', 'wheatston', 'capasitor', 'tir', 'bohr', 'lcr'..."
+              class="w-full pl-10 pr-20 py-3 rounded-xl bg-slate-900/95 border border-slate-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/30 text-sm text-white placeholder-slate-400 outline-none transition"
+            />
+            <button
+              id="clearSearchBtn"
+              type="button"
+              class="hidden absolute inset-y-1.5 right-2 px-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 transition"
+            >
+              Clear ✕
+            </button>
+          </div>
+
+          <div class="lg:col-span-3">
+            <select
+              id="chapterFilterSelect"
+              aria-label="Filter by Chapter"
+              class="w-full h-full py-3 px-3.5 rounded-xl bg-slate-900/95 border border-slate-700 focus:border-indigo-500 text-xs sm:text-sm text-slate-200 outline-none"
+            >
+              <option value="ALL">All 14 Chapters (Full Syllabus)</option>
+              <option value="1">Ch 1: Electric Charges & Fields</option>
+              <option value="2">Ch 2: Potential & Capacitance</option>
+              <option value="3">Ch 3: Current Electricity</option>
+              <option value="4">Ch 4: Moving Charges & Magnetism</option>
+              <option value="5">Ch 5: Magnetism & Matter</option>
+              <option value="6">Ch 6: Electromagnetic Induction</option>
+              <option value="7">Ch 7: Alternating Current</option>
+              <option value="8">Ch 8: Electromagnetic Waves</option>
+              <option value="9">Ch 9: Ray Optics & Instruments</option>
+              <option value="10">Ch 10: Wave Optics</option>
+              <option value="11">Ch 11: Dual Nature of Radiation</option>
+              <option value="12">Ch 12: Atoms</option>
+              <option value="13">Ch 13: Nuclei</option>
+              <option value="14">Ch 14: Semiconductor Electronics</option>
+            </select>
+          </div>
+
+          <div class="lg:col-span-2">
+            <select
+              id="typeFilterSelect"
+              aria-label="Filter by Question Type"
+              class="w-full h-full py-3 px-3.5 rounded-xl bg-slate-900/95 border border-slate-700 focus:border-indigo-500 text-xs sm:text-sm text-slate-200 outline-none"
+            >
+              <option value="ALL">All Types</option>
+              <option value="Derivation">Derivations</option>
+              <option value="Numerical">Numericals</option>
+              <option value="Conceptual">Conceptual</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Quick Test Typo & Half-Topic Chips -->
+        <div class="mt-4 pt-3 border-t border-slate-800/80 flex flex-wrap items-center gap-1.5">
+          <span class="text-[11px] font-medium text-slate-400 mr-1">Test Typo / Half-Word Search:</span>
+          <button type="button" data-query="gaus thm" class="quick-chip text-xs px-2.5 py-1 rounded-lg bg-slate-800/90 hover:bg-indigo-600/30 hover:text-indigo-200 text-slate-300 border border-slate-700 transition">"gaus thm"</button>
+          <button type="button" data-query="dielectrc capasitor" class="quick-chip text-xs px-2.5 py-1 rounded-lg bg-slate-800/90 hover:bg-indigo-600/30 hover:text-indigo-200 text-slate-300 border border-slate-700 transition">"dielectrc capasitor"</button>
+          <button type="button" data-query="wheatston" class="quick-chip text-xs px-2.5 py-1 rounded-lg bg-slate-800/90 hover:bg-indigo-600/30 hover:text-indigo-200 text-slate-300 border border-slate-700 transition">"wheatston"</button>
+          <button type="button" data-query="galvanomter" class="quick-chip text-xs px-2.5 py-1 rounded-lg bg-slate-800/90 hover:bg-indigo-600/30 hover:text-indigo-200 text-slate-300 border border-slate-700 transition">"galvanomter"</button>
+          <button type="button" data-query="lcr resonans" class="quick-chip text-xs px-2.5 py-1 rounded-lg bg-slate-800/90 hover:bg-indigo-600/30 hover:text-indigo-200 text-slate-300 border border-slate-700 transition">"lcr resonans"</button>
+          <button type="button" data-query="lens makr" class="quick-chip text-xs px-2.5 py-1 rounded-lg bg-slate-800/90 hover:bg-indigo-600/30 hover:text-indigo-200 text-slate-300 border border-slate-700 transition">"lens makr"</button>
+          <button type="button" data-query="ydse fring" class="quick-chip text-xs px-2.5 py-1 rounded-lg bg-slate-800/90 hover:bg-indigo-600/30 hover:text-indigo-200 text-slate-300 border border-slate-700 transition">"ydse fring"</button>
+          <button type="button" data-query="de brogli" class="quick-chip text-xs px-2.5 py-1 rounded-lg bg-slate-800/90 hover:bg-indigo-600/30 hover:text-indigo-200 text-slate-300 border border-slate-700 transition">"de brogli"</button>
+          <button type="button" data-query="rectifir" class="quick-chip text-xs px-2.5 py-1 rounded-lg bg-slate-800/90 hover:bg-indigo-600/30 hover:text-indigo-200 text-slate-300 border border-slate-700 transition">"rectifir"</button>
+        </div>
+
+        <!-- Fuzzy Correction Banner -->
+        <div id="fuzzySuggestionBanner" class="hidden mt-3 px-3.5 py-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-xs text-indigo-200 flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <span>✨</span>
+            <span id="fuzzySuggestionText">Smart Topic Match active</span>
+          </div>
+          <button id="expandAllSolutionsBtn" type="button" class="text-xs font-semibold underline hover:text-white">
+            Toggle All Visible Solutions
+          </button>
+        </div>
+      </div>
+
+      <!-- Questions Grid -->
+      <div id="questionsContainer" class="space-y-4"></div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800/80 py-6 mt-12 text-center text-xs text-slate-400">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>Built with ❤️ for Class 12 Physics Board & Competitive Prep • Ready for GitHub Pages</p>
+      <p class="font-mono text-slate-400">14 Chapters • 42 Core Syllabus Topics • Instant Solution Box</p>
+    </div>
+  </footer>
+
+  <!-- Modal 1: Customize Links & Personalization -->
+  <div id="customLinksModal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="glass-card rounded-2xl max-w-lg w-full p-6 border border-slate-700 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-lg font-bold text-white">⚙️ Customize Website Links & Title</h3>
+        <button id="closeCustomModalBtn" type="button" class="text-slate-400 hover:text-white text-sm px-2 py-1 rounded-lg">✕</button>
+      </div>
+      <p class="text-xs text-slate-300 leading-relaxed">
+        <strong>120 MB+ Large PDF Support Built-In:</strong> Paste any regular <strong>Google Drive share link</strong> (e.g. <code class="text-emerald-300">https://drive.google.com/file/d/FILE_ID/view?usp=sharing</code>) or a <strong>GitHub Releases asset link</strong> below — the app automatically converts Google Drive share links into instant 1-click direct download links (<code class="text-indigo-300">drive.usercontent.google.com</code>) bypassing the 100 MB virus-scan warning!
+      </p>
+      <div class="space-y-3">
+        <div>
+          <label for="inputPortalTitle" class="block text-xs font-semibold text-slate-300 mb-1">Website Header Title</label>
+          <input id="inputPortalTitle" type="text" value="Isha's Class 12 Physics Vault" class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white" />
+        </div>
+        <div>
+          
